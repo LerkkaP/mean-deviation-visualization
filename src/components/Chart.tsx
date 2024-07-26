@@ -7,8 +7,8 @@ import { debounce } from 'lodash';
 
 const MyChart = () => {
   const svgRef = useRef(null);
-  const [mean, setMean] = useState(5);
-  const [sigma, setSigma] = useState(2);
+  const [mean, setMean] = useState(0);
+  const [sigma, setSigma] = useState(1);
   const [data, setData] = useState<Data[]>([]);
 
   const updateGraph = debounce((mean, sigma) => {
@@ -16,7 +16,7 @@ const MyChart = () => {
   }, 100);
 
   useEffect(() => {
-    updateGraph(mean, sigma);
+    updateGraph(mean / 10, sigma / 10);
   }, [mean, sigma, updateGraph]);
 
   useEffect(() => {
@@ -82,7 +82,7 @@ const MyChart = () => {
           type="range"
           min="0"
           max="10"
-          step="0.1"
+          step="1"
           onChange={e => setMean(Number(e.target.value))}
         />
       </div>
@@ -91,12 +91,12 @@ const MyChart = () => {
         <input
           value={sigma}
           type="range"
-          min="0.1"
+          min="1"
           max="10"
-          step="0.1"
+          step="1"
           onChange={e => setSigma(Number(e.target.value))}
         />
-      </div>
+      </div>      
     </div>
   );
 };
