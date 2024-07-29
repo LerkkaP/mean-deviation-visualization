@@ -70,3 +70,7 @@ button:focus-visible {
 * {
   margin: 0 auto;
 }
+
+.title {
+  text-align: center;
+}

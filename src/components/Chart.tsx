@@ -31,19 +31,16 @@ const MyChart = () => {
     const y = d3.scaleLinear().range([height, 0]);
 
     const xAxis = d3.axisBottom(x);
-    const yAxis = d3.axisLeft(y);
 
     const line = d3
       .line<Data>()
       .x(d => x(d.q))
       .y(d => y(d.p));
 
-    const qExtent = [-10, 10];
+    const qExtent = [-8, 8];
     const pExtent = [0, d3.max(data, d => d.p) as number];
-
     x.domain(qExtent);
-    y.domain(pExtent);
-
+    y.domain([0, pExtent[1] * (sigma)]); // Adjust y domain based on sigma
     svg
       .append("g")
       .attr("class", "x axis")
@@ -53,7 +50,6 @@ const MyChart = () => {
     svg
       .append("g")
       .attr("class", "y axis")
-      .call(yAxis);
 
     svg
       .append("path")
@@ -68,7 +64,7 @@ const MyChart = () => {
       .datum(data)
       .attr("d", line);
 
-  }, [data]);
+  }, [data, sigma]);
 
   return (
     <div>
@@ -78,8 +74,8 @@ const MyChart = () => {
         <input
           value={mean}
           type="range"
-          min="0"
-          max="10"
+          min="-5"
+          max="5"
           step="0.1"
           onChange={e => setMean(Number(e.target.value))}
         />

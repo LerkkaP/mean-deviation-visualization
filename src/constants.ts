@@ -5,5 +5,5 @@ export const margin = {
     left: 50
   };
   
-export const width = 960 - margin.left - margin.right;
+export const width = 1280 - margin.left - margin.right;
 export const height = 500 - margin.top - margin.bottom;
